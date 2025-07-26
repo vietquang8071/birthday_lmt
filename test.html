@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday My Love</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #ffe0f0, #ffeef7);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 80px;
+      color: #d63384;
+      font-size: 3em;
+      font-family: 'Great Vibes';
+    }
+
+    .message {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.3em;
+      color: #444;
+      max-width: 600px;
+      margin: auto;
+      font-family: 'Parisienne';
+    }
+
+    .falling-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .falling-item {
+      position: absolute;
+      top: -50px;
+      font-size: 24px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(2); }
+    }
+
+    .trail {
+      position: absolute;
+      font-size: 18px;
+      pointer-events: none;
+      animation: fadeOut 1s forwards;
+    }
+
+    .gift-box {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+    }
+
+    .gift {
+      width: 500px;
+      height: 500px;
+      background: url('heart.png') center/contain no-repeat;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .gift:hover {
+      transform: scale(1.1);
+    }
+
+    .gallery {
+      display: none;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 30px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <audio id="bg-music" loop>
+    <source src="meomeo.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ âm thanh.
+  </audio>
+
+  <h1>Happy Birthday, My Love ❤️</h1>
+
+  <div class="message">
+    Chúc em một ngày sinh nhật thật vui vẻ, tràn đầy yêu thương và những điều tuyệt vời nhất. Anh cảm thấy thật may mắn khi có em trong đời. Mỗi khoảnh khắc bên em là một món quà vô giá. Mãi yêu em! 💕
+  </div>
+
+  <div class="gift-box">
+    <div class="gift" onclick="openGift()"></div>
+  </div>
+
+  <div class="gallery" id="gallery">
+    <img src="embe-1.jpg" alt="Memory 1">
+    <img src="embe-2.jpg" alt="Memory 2">
+    <img src="embe-3.jpg" alt="Memory 3">
+  </div>
+
+  <div class="falling-container"></div>
+
+  <script>
+    function createFallingItem() {
+      const container = document.querySelector('.falling-container');
+      const item = document.createElement('div');
+      item.classList.add('falling-item');
+      item.innerText = ['💖', '🌸', '💐', '❤️'][Math.floor(Math.random() * 4)];
+      item.style.left = Math.random() * window.innerWidth + 'px';
+      item.style.animationDuration = (2 + Math.random() * 3) + 's';
+      container.appendChild(item);
+      setTimeout(() => item.remove(), 5000);
+    }
+    setInterval(createFallingItem, 300);
+
+    document.addEventListener('mousemove', (e) => {
+      const trail = document.createElement('div');
+      trail.className = 'trail';
+      trail.style.left = e.pageX + 'px';
+      trail.style.top = e.pageY + 'px';
+      trail.innerText = ['💗','🌸','✨','💕'][Math.floor(Math.random() * 4)];
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 1000);
+    });
+
+    function openGift() {
+      const gift = document.querySelector('.gift');
+      gift.style.display = 'none';
+      const gallery = document.getElementById('gallery');
+      gallery.style.display = 'flex';
+      const audio = document.getElementById('bg-music');
+      audio.volume = 0; // Bắt đầu từ âm lượng 0
+      audio.play();
+
+      // Tăng âm lượng dần (fade in)
+      let volume = 0;
+      const fadeIn = setInterval(() => {
+        if (volume < 1) {
+          volume += 0.02; // tốc độ tăng
+          audio.volume = Math.min(volume, 1);
+        } else {
+          clearInterval(fadeIn);
+        }
+      }, 100); // mỗi 100ms tăng 0.02 => khoảng 5 giây fade in
+    }
+  </script>
+</body>
+</html>
