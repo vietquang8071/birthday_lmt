@@ -105,6 +105,23 @@
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
+    .side-gif {
+      position: fixed;
+      top: 50%;
+      width: 120px; /* Tuỳ chỉnh kích thước */
+      transform: translateY(-50%);
+      z-index: 10;
+      pointer-events: none; /* Không chặn click */
+    }
+
+    .left {
+      left: 10px;
+    }
+
+    .right {
+      right: 10px;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.8); }
       to { opacity: 1; transform: scale(1); }
@@ -116,12 +133,17 @@
     <source src="meomeo.mp3" type="audio/mpeg">
     Trình duyệt của bạn không hỗ trợ âm thanh.
   </audio>
+  
+  <img src="left.gif" class="side-gif left">
+  <img src="right.gif" class="side-gif right">
 
   <h1>Happy Birthday, My Love ❤️</h1>
+  <div id="typed-text" style="text-align:center; font-size: 1.4em; color: #d63384; margin-top: 10px;"></div>
 
   <div class="message">
     Chúc em một ngày sinh nhật thật vui vẻ, tràn đầy yêu thương và những điều tuyệt vời nhất. Anh cảm thấy thật may mắn khi có em trong đời. Mỗi khoảnh khắc bên em là một món quà vô giá. Mãi yêu em! 💕
   </div>
+
 
   <div class="gift-box">
     <div class="gift" onclick="openGift()"></div>
@@ -179,5 +201,7 @@
       }, 100); // mỗi 100ms tăng 0.02 => khoảng 5 giây fade in
     }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
 </body>
 </html>
